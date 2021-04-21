@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BulletMovement : MonoBehaviour
 {
-    [Tooltip("Velocidad de la bala")]
+    [Tooltip("Velocidad bala")]
     public float bulletSpeed;
 
-    [Tooltip("Referencia al enemigo que voy a matar")]
+    [Tooltip("Referencia a enemigo")]
     public GameObject enemy;
 
     // Start is called before the first frame update
@@ -19,12 +19,15 @@ public class BulletMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, enemy.transform.position, bulletSpeed);
+        if (enemy != null)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, enemy.transform.position, bulletSpeed);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        // La bala se destruye en cuanto colisiona con algún objeto
-        Destroy(gameObject);
-    }
+    
 }
